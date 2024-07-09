@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 20px;
+        }
+        .movie-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .movie-item img {
+            width: 100%;
+            height: auto;
+        }
+        .movie-item button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Movie List</h1>
+<div class="movie-grid">
+    <div class="movie-item">
+        <img src="m1.jpg" alt="Inside Out 2">
+        <h3>Inside Out 2</h3>
+        <button onclick="viewDetails('Inside Out 2', 'm1.jpg', 'Riley is now thirteen years old and shes pushed into a new development stage, which brings to life new emotions inside of her: Anxiety, Ennui, Nostalgia, and Embarrassment, each one a complex character in its own right. She is changing.')">View Details</button>
+    </div>
+    <div class="movie-item">
+        <img src="m2.jpg" alt="Movie 2">
+        <h3>Movie 2</h3>
+        <button onclick="viewDetails('Tenet', 'm2.jpg', 'Tenet is a 2020 movie directed by Christopher Nolan and starring John David Washington, Robert Pattinson, Elizabeth Debicki, and others. The film is about an unnamed CIA operative, known as The Protagonist, who is recruited by a mysterious organization called Tenet for a global mission that takes place outside of real time.')">View Details</button>
+    </div>
+    
+</div>
+
+<script>
+    function viewDetails(title, img, description) {
+        const movieData = {
+            title: title,
+            img: img,
+            description: description
+        };
+        localStorage.setItem('selectedMovie', JSON.stringify(movieData));
+        window.location.href = 'movie-details.html';
+    }
+</script>
+
+</body>
+</html>

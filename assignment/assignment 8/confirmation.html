@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation</title>
+</head>
+<body>
+
+<h1>Booking Confirmation</h1>
+<p>Booking ID: <span id="bookingId"></span></p>
+<p>Name: <span id="name"></span></p>
+<p>Email: <span id="email"></span></p>
+<p>Mobile: <span id="mobile"></span></p>
+
+<script>
+    document.getElementById('bookingId').textContent = 'ID' + Math.floor(Math.random() * 1000000);
+    document.getElementById('name').textContent = localStorage.getItem('name');
+    document.getElementById('email').textContent = localStorage.getItem('email');
+    document.getElementById('mobile').textContent = localStorage.getItem('mobile');
+</script>
+
+</body>
+</html>

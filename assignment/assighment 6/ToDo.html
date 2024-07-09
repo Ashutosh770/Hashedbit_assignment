@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List App</title>
+</head>
+<body>
+
+<h2>Todo List</h2>
+<input type="text" id="taskInput" placeholder="Enter a new task">
+<button id="addButton">Add</button>
+
+<ul id="todoList"></ul>
+
+<script>
+    // Function to add a new task
+    function addTask() {
+        const taskInput = document.getElementById('taskInput');
+        const taskText = taskInput.value.trim();
+
+        if (taskText === '') {
+            alert('Please enter a task');
+            return;
+        }
+
+        const taskItem = document.createElement('li');
+        taskItem.textContent = taskText;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.addEventListener('click', function() {
+            taskItem.remove();
+            sortTasks();
+        });
+
+        taskItem.appendChild(deleteButton);
+
+        document.getElementById('todoList').appendChild(taskItem);
+
+        taskInput.value = '';
+        sortTasks();
+    }
+
+    // Function to sort tasks in ascending order
+    function sortTasks() {
+        const todoList = document.getElementById('todoList');
+        const tasks = Array.from(todoList.getElementsByTagName('li'));
+
+        tasks.sort((a, b) => {
+            const taskA = a.firstChild.textContent.toLowerCase();
+            const taskB = b.firstChild.textContent.toLowerCase();
+
+            if (taskA < taskB) return -1;
+            if (taskA > taskB) return 1;
+            return 0;
+        });
+
+        todoList.innerHTML = '';
+        tasks.forEach(task => todoList.appendChild(task));
+    }
+
+    document.getElementById('addButton').addEventListener('click', addTask);
+
+    document.getElementById('taskInput').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            addTask();
+        }
+    });
+</script>
+
+</body>
+</html>

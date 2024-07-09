@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPL Points Table 2022</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        th.sortable:hover {
+            cursor: pointer;
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<h2>IPL Points Table 2022</h2>
+<table id="iplTable">
+    <thead>
+        <tr>
+            <th>Team</th>
+            <th>Matches Played</th>
+            <th>Matches Won</th>
+            <th>Matches Lost</th>
+            <th>NRR</th>
+            <th>Points</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+    async function fetchIPLData() {
+        const response = await fetch('https://my-json-server.typicode.com/FreSauce/json-ipl/data');
+        const data = await response.json();
+        return data;
+    }
+
+    function renderTable(data) {
+        const tableBody = document.querySelector('#iplTable tbody');
+        tableBody.innerHTML = '';
+
+        data.forEach(team => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${team.team}</td>
+                <td>${team.played}</td>
+                <td>${team.won}</td>
+                <td>${team.lost}</td>
+                <td>${team.nrr}</td>
+                <td>${team.points}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    function sortDataByNRR(data) {
+        return data.sort((a, b) => a.nrr - b.nrr);
+    }
+
+    async function init() {
+        const data = await fetchIPLData();
+        const sortedData = sortDataByNRR(data);
+        renderTable(sortedData);
+    }
+
+    init();
+</script>
+
+</body>
+</html>
